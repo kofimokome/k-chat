@@ -1,0 +1,13 @@
+Welcome User{{user_id}}<br/>
+<h1>Chat Rooms</h1>
+<div *ngFor="let chat_room of chat_rooms">
+    <a *ngIf="chat_room.chat_room.creator==user_id" [routerLink]="['/chat', chat_room.chat_room.name2]">
+        <h4>{{chat_room.chat_room.name2}}</h4>
+    </a>
+    <a *ngIf="chat_room.chat_room.creator!=user_id" [routerLink]="['/chat', chat_room.chat_room.name]">
+        <h4>{{chat_room.chat_room.name}}</h4>
+    </a>
+</div>
+<br/>
+<button class="btn btn-primary" (click)="logout()">Logout</button>
+<app-user-search></app-user-search>

@@ -1,0 +1,38 @@
+<div *ngIf="chat_room">
+    Hi User {{user_id}}<br>
+    <div class="container">
+        <div class="col-md-2 hidden-xs col-sm-2" id="members-box">
+            chat members <input type="text" placeholder="filter" #myfilter class="form-control" [(ngModel)]="termd">
+            <p *ngFor="let member of chat_room.members | filter:termd">
+                <span *ngIf="member.user_id==user_id">Me</span>
+                <span *ngIf="member.user_id!=user_id">{{member.userDetails.username}}</span>
+                <span *ngIf="member.userDetails.online" class="fa fa-toggle-on"></span>
+                <span *ngIf="!member.userDetails.online" class="fa fa-toggle-off"></span>
+            </p>
+        </div>
+        <div class="col-md-10 col-xs-12 col-sm-10" id="messages-box">
+            <div class="container-fluid">
+                {{typing}}
+                <div id="messages">
+                    <div *ngFor="let message of chat_room.messages">
+                        <div *ngIf="message.user_id == user_id" class="talk-bubble tri-right right-top player1">
+                            <div class="talktext"><p>{{message.message}}</p></div>
+                        </div>
+                        <div *ngIf="message.user_id != user_id" class="talk-bubble tri-right left-top player2">
+                            <div class="talktext"><p>{{message.message}}</p></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div id="newMessage">
+
+                <textarea #message placeholder="your message" class="form-control"
+                          (keypress)="newMessage(message.value,$event.keyCode);$event.keyCode===13? message.value='':isTyping(chat_room.chat_room.id)"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!chat_room">
+    <span class="fa fa-warning fa-3x"> chat room not found</span>
+</div>

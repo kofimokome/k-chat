@@ -1,0 +1,9 @@
+<div id="search-component">
+    <h4>User Search</h4>
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
+    <div>
+        <div *ngFor="let user of users" class="search-result">
+            <a href="#" (click)="newPrivateChat(user.id);$event.preventDefault()">{{user.username}}</a>
+        </div>
+    </div>
+</div>
